@@ -11,7 +11,7 @@ spring:
   datasource:
     url: jdbc:postgresql://${DB_HOST}/user_service?serverTimezone=UTC&useLegacyDatetimeCode=false
     username: "{cipher}956bf7ce65e62326d2d1b9ad72f9cd1cc096159aafd25e88957d7c43711058f6"
-    password: "{cipher}4c7986edcf7acd7a95f85484bb10a5059d0900c57279c1b9432b39a2be775796"
+    password: "{cipher}94433f0966a6cd4aea5407ef962e1d2231c6154ea4405c273ef82ee728b43817"
     hibernate:
       ddl-auto: none
   sql:
