@@ -10,8 +10,8 @@ logging:
 spring:
   datasource:
     url: jdbc:postgresql://${DB_HOST}/user_service?serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: "{cipher}082341d46af4f5d7e5749d7013a1a6bb076be928b7829fa983292e3a15f2ab42"
-    password: "{cipher}19a959f0e4fa9f132df80a66e9f3cddf7caf37b24b034aa89d0e0618a959fe2b"
+    username: "{cipher}14db95bd7e0ae35b4a47f4ba5278acce6aff7248a74a329e0affc3d1e83eea28%"
+    password: "{cipher}be50d08d511e6e658302b3ba564bee4a5bbcb8346834f2467666b2dc1ff7be93%"
     hibernate:
       ddl-auto: none
   sql:
