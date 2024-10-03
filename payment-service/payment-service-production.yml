@@ -1,0 +1,83 @@
+server:
+  port: 9110
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_HOST}:9761/eureka/
+
+logging:
+  level:
+    ROOT: info
+    com.tima.platform: INFO
+
+
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST}?stringtype=unspecified&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    name: payment_service
+    username: "{cipher}082341d46af4f5d7e5749d7013a1a6bb076be928b7829fa983292e3a15f2ab42"
+    password: "{cipher}19a959f0e4fa9f132df80a66e9f3cddf7caf37b24b034aa89d0e0618a959fe2b"
+  devtools:
+    restart.enabled: true
+  pool:
+    enabled: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${AUTH_SERVER_URI}/.well-known/authorization-server/jwks.json
+  cloud:
+    function:
+      definition: mailing; newAccount
+    stream:
+      bindings:
+        mailing-out-0:
+          destination: mailing-send
+        alert-out-0:
+          destination: alert-notice
+  rabbitmq:
+    host: ${BROKER_HOST}
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+email:
+  activation:
+    template: d-3eca4131b71949989a5d9ee7b1993511
+  password-reset:
+    template: d-1a0862c51bcd47dbabae68a3fa380967
+
+agency:
+   campaign:
+      url: ${CAMPAIGN_URL}
+      budget:
+         url: ${AGENCY_URL}
+
+paystack:
+   createRecipient:
+      url: https://api.paystack.co/transferrecipient
+   transfer:
+      url: https://api.paystack.co/transfer
+   charge:
+      url: https://api.paystack.co/transaction/charge_authorization
+   access:
+      type: 
+      name: Paystack
+   callback:
+       url: http://localhost/tima
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    rabbit:
+      enabled: true
+

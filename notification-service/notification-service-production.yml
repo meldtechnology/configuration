@@ -1,0 +1,55 @@
+server:
+  port: 9000
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+    min-response-size: 1024
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_HOST}:9761/eureka/
+
+logging:
+  level:
+    ROOT: info
+    com.jade.platform: INFO
+
+spring:
+  cloud:
+    function:
+      definition: mailing; lookup; billing
+    stream:
+      bindings:
+        mailing-in-0:
+          destination: mailing-send
+  rabbitmq:
+    host: ${BROKER_HOST}
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+sms:
+  twilio:
+    account_sid: "{cipher}fd7dac9b4821bbd18ce9ee4e6327d22ed94e278eac477586ea5e02bc829e2c2031f584c1888fe413f4da5d89a777136b11ce369d3fa9b671fe591fbc301395bc"
+    auth_token: "{cipher}29439e7e8f5b7c02eaf28767dbffa4052931813b23996a8b1a1b093cf766a899a0121d00c66eb15c3b8a92e988590de77c7759c57c1fb4805c63065f1ebd4c5b"
+    sender_name: ThamaniInvest
+
+
+send:
+   grid:
+      url: https://api.sendgrid.com/v3/mail/send
+      apiKey: "{cipher}30af7e5f9198929f273dcf54498e2b1daa511ec06a9ac33e1373bdf29e1c1df87d9a38829f803e2f200cba3e031fb4b4562811760d1e21821c4aef2da033f2ce951a2c72da7bda8b5dd23e689341572d6059c851db516881b40dd1291415091c"
+      from: hello@tima.agency
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+

@@ -1,0 +1,110 @@
+server:
+  port: 9100
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_HOST}:9761/eureka/
+
+logging:
+  level:
+    ROOT: INFO
+    com.tima.platform: DEBUG
+#    io.r2dbc.postgresql.QUERY: DEBUG # for queries
+#    io.r2dbc.postgresql.PARAM: DEBUG
+
+
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST}?stringtype=unspecified&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    name: agency_service
+    username: "{cipher}082341d46af4f5d7e5749d7013a1a6bb076be928b7829fa983292e3a15f2ab42"
+    password: "{cipher}19a959f0e4fa9f132df80a66e9f3cddf7caf37b24b034aa89d0e0618a959fe2b"
+  devtools:
+    restart.enabled: true
+  pool:
+    enabled: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${AUTH_SERVER_URI}/.well-known/authorization-server/jwks.json
+  cloud:
+    function:
+      definition: userIndustry; newAccount
+    stream:
+      bindings:
+        setting-out-0:
+          destination: notice-setting
+        userIndustry-in-0:
+          destination: userIndustry
+        alert-out-0:
+          destination: alert-notice
+  rabbitmq:
+    host: ${BROKER_HOST}
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+
+user:
+   profile:
+       url: ${PROFILE_URL}
+   profiles:
+       url: ${PROFILES_URL}
+
+app:
+   scheduler:
+      campaign:
+         status: '0 30 0 * * ?' 
+
+social:
+   ig:
+     businessAccount: 17841404139925628
+     baseUrl: https://graph.facebook.com
+     credentials:
+           id: "{cipher}badd1846d13f6b567e71c66e9f89a97fbcbc0362aefb5e3d2ad583b2605358ab7906a335544951bd1a8cc9b66bed5a87"
+           secret: "{cipher}0e03c6c0f13646cd60f70674567ea8831bb41a2b781cc33cf07ad6717b2948cb2204494a364a1489ce11cfa924f08355e80b1629c9c9dad587d871d9300747bb"
+     account: ${social.ig.baseUrl}/v18.0/me/accounts?fields=id,name,category,category_list,tasks
+     userId: ${social.ig.baseUrl}/v18.0/%s?fields=instagram_business_account
+     longLivedToken: ${social.ig.baseUrl}/v18.0/oauth/access_token?grant_type=fb_exchange_token&client_id=${social.ig.credentials.id}&client_secret=${social.ig.credentials.secret}&fb_exchange_token=%s
+     businessDiscovery: ${social.ig.baseUrl}/v19.0/%s?fields=business_discovery.username(%s){username,name,biography,website,profile_picture_url,followers_count,media_count,media{comments_count,like_count,media_product_type,media_type}}
+     demographicsCountry: ${social.ig.baseUrl}/v19.0/%s/insights?metric=follower_demographics&period=lifetime&metric_type=total_value&breakdown=country
+     demographicsCity: ${social.ig.baseUrl}/v19.0/%s/insights?metric=follower_demographics&period=lifetime&metric_type=total_value&breakdown=city
+     demographicsPerson: ${social.ig.baseUrl}/v19.0/%s/insights?metric=follower_demographics&period=lifetime&metric_type=total_value&breakdown=age,gender
+     insightMetrics: ${social.ig.baseUrl}/v19.0/%s/insights?metric=impressions,reach,profile_views,website_clicks,total_interactions,accounts_engaged,likes, comments, shares, saves&period=day&metric_type=total_value
+   expires: 60
+   logoPath: https://tima-resources.s3.us-east-2.amazonaws.com/socialMediaLogo
+
+aws:
+  s3:
+      key:
+          access: "{cipher}7308769c880d44773d73dbc0369c966b5ea54e55d14fb68603850fd544d8f5fda24410a25ac1c1b79739fb1c920647ca"
+          secret: "{cipher}c24f4eff9cdfc4ec2a13177c0c1ee782fde0d456093eece3d3d8575ef30831999b297e9dceae610b1442dab8a262e078c3bf29e34603945a3fe425e824258e01"
+      content-type: image/png
+      signedUrl:
+         timeToLive: 2
+      image-ext: .png
+      resource:
+         thumbnail: thumbnailPicture/
+      url: https://tima-resources.s3.us-east-2.amazonaws.com/
+  accessKeyId: "{cipher}7308769c880d44773d73dbc0369c966b5ea54e55d14fb68603850fd544d8f5fda24410a25ac1c1b79739fb1c920647ca"
+  secretKey: "{cipher}c24f4eff9cdfc4ec2a13177c0c1ee782fde0d456093eece3d3d8575ef30831999b297e9dceae610b1442dab8a262e078c3bf29e34603945a3fe425e824258e01"
+#  sessionToken: ""
+  region: us-east-2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    rabbit:
+      enabled: true
+

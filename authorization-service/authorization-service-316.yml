@@ -1,0 +1,47 @@
+server:
+  port: 9011
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_HOST}:9761/eureka/
+
+logging:
+  level:
+    ROOT: INFO
+    com.jade.platform: DEBUG
+    org.springframework.security: TRACE
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}/user_service?serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: "{cipher}082341d46af4f5d7e5749d7013a1a6bb076be928b7829fa983292e3a15f2ab42"
+    password: "{cipher}19a959f0e4fa9f132df80a66e9f3cddf7caf37b24b034aa89d0e0618a959fe2b"
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: always
+  jpa:
+    open-in-view: off
+
+
+app:
+  login:
+    url: https://tima.us-east-2.elasticbeanstalk.com/api/auth/login
+issuer.uri: ${ISSUER_HOST_URL}
+private.key: jadedemo.jks
+
+key:
+  password: "{cipher}634898ab430a02301ac5e22e27e90a2fea5cad5f6580bfd80d9258cb2fcadb3a"
+  alias: "{cipher}d3fac537035e9e22b4fcf7507698119228bc8f4d6c7bf4d98e5f3aab3f88670c"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

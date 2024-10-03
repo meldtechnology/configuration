@@ -1,0 +1,83 @@
+server:
+  port: 9055
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${DISCOVERY_HOST}:9761/eureka/
+
+prefix: /api
+
+spring:
+  cloud:
+    loadbalancer.ribbon.enabled: false
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+#            allowedOrigins: "*"
+            allowedOriginPatterns: "*"
+            allowCredentials: true
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            maxAge: 3600
+      routes:
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+          - Path=${prefix}/notification/**
+          filters:
+          - RewritePath=${prefix}/notification/(?<path>.*), /$\{path}
+
+        - id: authorization-service
+          uri: lb://authorization-service
+          predicates:
+          - Path=${prefix}/auth/**
+          filters:
+          - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+          - RewritePath=${prefix}/auth/(?<path>.*), /$\{path}
+
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+          - Path=${prefix}/user/**
+          filters:
+          - RewritePath=${prefix}/user/(?<path>.*), /$\{path}
+#          - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 2
+#                redis-rate-limiter.burstCapacity: 2
+#                redis-rate-limiter.requestedTokens: 1
+#                key-resolver: "#{@userKeyResolver}"
+
+        - id: agency-service
+          uri: lb://agency-service
+          predicates:
+          - Path=${prefix}/agency/**
+          filters:
+          - RewritePath=${prefix}/agency/(?<path>.*), /$\{path}
+
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+          - Path=${prefix}/payment/**
+          filters:
+          - RewritePath=${prefix}/payment/(?<path>.*), /$\{path}
+
+        - id: alert-service
+          uri: lb://alert-service
+          predicates:
+          - Path=${prefix}/alert/**
+          filters:
+          - RewritePath=${prefix}/alert/(?<path>.*), /$\{path}
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
