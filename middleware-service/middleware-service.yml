@@ -18,6 +18,17 @@ spring:
         jwt:
           jwk-set-uri: ${ISSUER_HOST}/.well-known/authorization-server/jwks.json
 
+DB_HOST: ${DB_HOST}
+USER_NAME: "{cipher}956bf7ce65e62326d2d1b9ad72f9cd1cc096159aafd25e88957d7c43711058f6"
+PASSWORD: "{cipher}94433f0966a6cd4aea5407ef962e1d2231c6154ea4405c273ef82ee728b43817"
+CLIENT_ID: "{cipher}d3242bdde7c9024fb963ec6e9b644d0bd9b0d613bd8ace1007e87e9a0e888512a54b9c2c0d9c96fa06bb2a58ba1abe6fee7f5dcf95afd3da54bd13c3df6c5415"
+CLIENT_SECRET: "{cipher}0a737da608e28c5291b75c297c8bba13676c9059b2537883ca5180809abc2dd9"
+ISSUER_HOST: ${ISSUER_HOST}
+SCOPE: ${SCOPE}
+REDIRECT_URL: ${REDIRECT_URL}
+CLOUD_NAME: "{cipher}8983718db7b86f9c705103f0e1e7ff52cb260de1269cfddfe3d6e6483816c292"
+API_KEY: "{cipher}d040cb0b61a270e1d00be3e6cfbaba94037c92d4c278030ce8bf41b8e70d3fd3"
+API_SECRET: "{cipher}e66d5a1b4e5de8d26ed5d1fb170d0c221adc162735363560ff136fb37c7e9a60120ba45aff9f0ecc6c7d8cd75c270f00"
 
 
 mail:
