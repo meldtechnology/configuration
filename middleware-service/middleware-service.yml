@@ -2,10 +2,6 @@ server:
   port: 9100
 
 spring:
-  application:
-    name: middleware-service
-  profiles:
-    active: default, users
   codec:
     max-in-memory-size: 7048576
   security:
