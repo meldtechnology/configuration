@@ -1,15 +1,6 @@
 server:
   port: 9100
 
-spring:
-  codec:
-    max-in-memory-size: 7048576
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: ${ISSUER_HOST}/.well-known/authorization-server/jwks.json
-
 mail:
   otp:
     template: 2-09i93837ooP
@@ -36,6 +27,13 @@ spring:
     restart.enabled: true
   pool:
     enabled: true
+  codec:
+    max-in-memory-size: 7048576
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${ISSUER_HOST}/.well-known/authorization-server/jwks.json
 
   cloud:
     function:
