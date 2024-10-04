@@ -1,0 +1,40 @@
+server:
+  port: 9100
+
+logging:
+  level:
+    ROOT: ${ROOT_LOG_LEVEL}
+    com.jade.platform: ${LOG_LEVEL}
+    org.springframework.security: ${LOG_LEVEL}
+
+spring:
+  profiles:
+    active: default, users
+  codec:
+    max-in-memory-size: 7048576
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${ISSUER_HOST}/.well-known/authorization-server/jwks.json
+
+
+
+mail:
+  otp:
+    template: 2-09i93837ooP
+  reset:
+    password:
+      template: x-0292929299929992
+
+springdoc:
+  server-url: ${SWAGGER_DOC_URL}
+  swagger-ui:
+    tagsSorter: alpha
+  writer-with-order-by-keys: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
