@@ -1,13 +1,11 @@
 server:
   port: 9100
 
-logging:
-  level:
-    ROOT: ${ROOT_LOG_LEVEL}
-    com.jade.platform: ${LOG_LEVEL}
-    org.springframework.security: ${LOG_LEVEL}
-
 spring:
+  application:
+    name: middleware-service
+  profiles:
+    active: default, users
   codec:
     max-in-memory-size: 7048576
   security:
@@ -16,22 +14,85 @@ spring:
         jwt:
           jwk-set-uri: ${ISSUER_HOST}/.well-known/authorization-server/jwks.json
 
-
 mail:
   otp:
-    template: d-ba9230dec34a428ea2982971e9e021c1 
+    template: 2-09i93837ooP
   reset:
     password:
       template: x-0292929299929992
 
 springdoc:
-  server-url: ${SWAGGER_DOC_URL}
+  server-url: http://localhost:9100
   swagger-ui:
     tagsSorter: alpha
   writer-with-order-by-keys: true
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+===
+
+spring:
+  application:
+    name: user-service-lib
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST}?user_service?serverTimezone=UTC&useLegacyDatetimeCode=false
+    name: user_service
+    username: "{cipher}956bf7ce65e62326d2d1b9ad72f9cd1cc096159aafd25e88957d7c43711058f6"
+    password: "{cipher}94433f0966a6cd4aea5407ef962e1d2231c6154ea4405c273ef82ee728b43817"
+  devtools:
+    restart.enabled: true
+  pool:
+    enabled: true
+
+  cloud:
+    function:
+      definition: mailing; setting
+    stream:
+      bindings:
+        mailing-out-0:
+          destination: mailing-send
+        userIndustry-out-0:
+          destination: userIndustry
+        setting-in-0:
+          destination: notice-setting
+  rabbitmq:
+    host: ${BROKER_HOST}
+    port: 5672
+    username: guest
+  activation:
+    template: d-3eca4131b71949989a5d9ee7b1993511
+  password-reset:
+    template: d-1a0862c51bcd47dbabae68a3fa380967
+
+meld:
+  scheduler:
+    token:
+      cleanup: '0 0 */3 * * ?'
+    otp:
+      cleanup: '0 0 * * * ?'
+
+oauth2:
+  client:
+    id: "{cipher}d3242bdde7c9024fb963ec6e9b644d0bd9b0d613bd8ace1007e87e9a0e888512a54b9c2c0d9c96fa06bb2a58ba1abe6fee7f5dcf95afd3da54bd13c3df6c5415"
+    secret:  "{cipher}0a737da608e28c5291b75c297c8bba13676c9059b2537883ca5180809abc2dd9"
+
+  authorize:
+    url: ${ISSUER_HOST}/oauth2/authorize
+    scope: ${SCOPE}
+    challengeMethod: S256
+
+  authorization:
+    url: ${ISSUER_HOST}/oauth2/token
+    grant_type: authorization_code
+    redirect_uri: ${REDIRECT_URL}
+
+  logout:
+    url: ${ISSUER_HOST}/logout
+
+cloudinary:
+  cloud-name: "{cipher}8983718db7b86f9c705103f0e1e7ff52cb260de1269cfddfe3d6e6483816c292"
+  api-key: "{cipher}d040cb0b61a270e1d00be3e6cfbaba94037c92d4c278030ce8bf41b8e70d3fd3"
+  api-secret: "{cipher}e66d5a1b4e5de8d26ed5d1fb170d0c221adc162735363560ff136fb37c7e9a60120ba45aff9f0ecc6c7d8cd75c270f00"
+
+logging:
+  level:
+    root: ${ROOT_LOG_LEVEL}
+
