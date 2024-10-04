@@ -22,7 +22,7 @@ spring:
 
 mail:
   otp:
-    template: 2-09i93837ooP
+    template: d-ba9230dec34a428ea2982971e9e021c1 
   reset:
     password:
       template: x-0292929299929992
