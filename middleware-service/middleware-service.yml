@@ -8,8 +8,6 @@ logging:
     org.springframework.security: ${LOG_LEVEL}
 
 spring:
-  profiles:
-    active: default, users
   codec:
     max-in-memory-size: 7048576
   security:
