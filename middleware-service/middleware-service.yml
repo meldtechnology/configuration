@@ -9,7 +9,7 @@ mail:
       template: x-0292929299929992
 
 springdoc:
-  server-url: http://localhost:9100
+  server-url: ${SWAGGER_DOC_URL}
   swagger-ui:
     tagsSorter: alpha
   writer-with-order-by-keys: true
