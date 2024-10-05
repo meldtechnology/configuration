@@ -26,3 +26,6 @@ spring:
         jwt:
           jwk-set-uri: ${ISSUER_HOST}/.well-known/authorization-server/jwks.json
 
+auth:
+  config:
+     disabled: true
