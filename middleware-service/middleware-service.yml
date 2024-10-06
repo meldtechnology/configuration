@@ -18,8 +18,8 @@ springdoc:
 spring:
   profiles:
     include: dev
-#  codec:
-#    max-in-memory-size: 7048576
+  codec:
+    max-in-memory-size: 7048576
   security:
     oauth2:
       resourceserver:
