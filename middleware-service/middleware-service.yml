@@ -6,7 +6,7 @@ mail:
     template: d-51f59b90307f43518af1ff015950028c 
   reset:
     password:
-      template: x-0292929299929992
+      template: d-3925528782334bc0947b33f4df53c4af
 
 springdoc:
   server-url: ${SWAGGER_DOC_URL}
