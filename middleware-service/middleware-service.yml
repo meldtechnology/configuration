@@ -3,7 +3,7 @@ server:
 
 mail:
   otp:
-    template: 2-09i93837ooP
+    template: d-51f59b90307f43518af1ff015950028c 
   reset:
     password:
       template: x-0292929299929992
