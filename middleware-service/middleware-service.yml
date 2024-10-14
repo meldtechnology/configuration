@@ -14,11 +14,10 @@ springdoc:
     tagsSorter: alpha
   writer-with-order-by-keys: true
 
-allowed.origins: http://localhost:3000, 
 
 spring:
   profiles:
-    include: dev
+    include: users
   codec:
     max-in-memory-size: 7048576
   security:
