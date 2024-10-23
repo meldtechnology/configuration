@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: document-service-lib
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST}?document_service?serverTimezone=UTC&useLegacyDatetimeCode=false
+    name: document_service
+    username: "{cipher}956bf7ce65e62326d2d1b9ad72f9cd1cc096159aafd25e88957d7c43711058f6"
+    password: "{cipher}94433f0966a6cd4aea5407ef962e1d2231c6154ea4405c273ef82ee728b43817"
+  devtools:
+    restart.enabled: true
+  pool:
+    enabled: true
+
+  cloud:
+    function:
+      definition: mailing; setting
+    stream:
+      bindings:
+        mailing-out-0:
+          destination: mailing-send
+        userIndustry-out-0:
+          destination: userIndustry
+        setting-in-0:
+          destination: notice-setting
+  rabbitmq:
+    host: ${BROKER_HOST}
+    port: 5672
+    username: guest
+
+logging:
+  level:
+    root: ${ROOT_LOG_LEVEL}
+
