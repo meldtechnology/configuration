@@ -2,8 +2,8 @@ spring:
   application:
     name: user-service-lib
   r2dbc:
-    url: r2dbc:postgresql://${DB_HOST}?${USER_DB}_service?serverTimezone=UTC&useLegacyDatetimeCode=false
-    name: ${USER_DB}_service
+    url: r2dbc:postgresql://${DB_HOST}?$user_service?serverTimezone=UTC&useLegacyDatetimeCode=false
+    name: user_service
     username: "{cipher}8283992cfdd36c80d5865a47922662fc5551b7522d5b0010aae0393a09a90bf8"
     password: "{cipher}7bb75a1d16f037829e7507739a950be52ca01ab16268bf48d81e7962daee6e20"
   devtools:
