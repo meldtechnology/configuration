@@ -16,8 +16,8 @@ springdoc:
 
 
 spring:
-#  profiles:
-#    include: #dev, doc_dev #users, documents
+  profiles:
+    include: dev #users
   codec:
     max-in-memory-size: 7048576
   security:

@@ -2,10 +2,10 @@ spring:
   application:
     name: user-service-lib
   r2dbc:
-    url: r2dbc:postgresql://${DB_HOST}?${USER_DB}_service?serverTimezone=UTC&useLegacyDatetimeCode=false
-    name: ${USER_DB}_service
-    username: "{cipher}8283992cfdd36c80d5865a47922662fc5551b7522d5b0010aae0393a09a90bf8"
-    password: "{cipher}7bb75a1d16f037829e7507739a950be52ca01ab16268bf48d81e7962daee6e20"
+    url: r2dbc:postgresql://${DB_HOST}?user_service?serverTimezone=UTC&useLegacyDatetimeCode=false
+    name: user_service
+    username: "{cipher}956bf7ce65e62326d2d1b9ad72f9cd1cc096159aafd25e88957d7c43711058f6"
+    password: "{cipher}94433f0966a6cd4aea5407ef962e1d2231c6154ea4405c273ef82ee728b43817"
   devtools:
     restart.enabled: true
   pool:
@@ -29,7 +29,7 @@ spring:
 
 email:
   activation:
-    template: d-8f99893246b946b090b8f860e9f3f222
+    template: d-3eca4131b71949989a5d9ee7b1993511
   password-reset:
     template: d-1a0862c51bcd47dbabae68a3fa380967
 
