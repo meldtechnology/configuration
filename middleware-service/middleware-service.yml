@@ -17,7 +17,7 @@ springdoc:
 
 spring:
   profiles:
-    include: dev #local
+    include: local
   codec:
     max-in-memory-size: 7048576
   security:
