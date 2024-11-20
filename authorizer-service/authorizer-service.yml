@@ -12,7 +12,7 @@ spring:
     url: jdbc:postgresql://${DB_HOST}/user_service?serverTimezone=UTC&useLegacyDatetimeCode=false
 #    username: "{cipher}956bf7ce65e62326d2d1b9ad72f9cd1cc096159aafd25e88957d7c43711058f6"
 #    password: "{cipher}94433f0966a6cd4aea5407ef962e1d2231c6154ea4405c273ef82ee728b43817"
-     username: ${USERNAME
+     username: ${USERNAME}
      password: ${PASSWORD}
     hibernate:
       ddl-auto: none
