@@ -34,6 +34,10 @@ issuer:
 private:
   key: jadedemo.jks
 
+authentication:
+   not_found:
+       path: ${NOT_FOUND_PATH}
+
 key:
   password: "{cipher}634898ab430a02301ac5e22e27e90a2fea5cad5f6580bfd80d9258cb2fcadb3a"
   alias: "{cipher}d3fac537035e9e22b4fcf7507698119228bc8f4d6c7bf4d98e5f3aab3f88670c"
