@@ -63,6 +63,16 @@ cloudinary:
   api-key: "{cipher}d040cb0b61a270e1d00be3e6cfbaba94037c92d4c278030ce8bf41b8e70d3fd3"
   api-secret: "{cipher}e66d5a1b4e5de8d26ed5d1fb170d0c221adc162735363560ff136fb37c7e9a60120ba45aff9f0ecc6c7d8cd75c270f00"
 
+verification:
+   company:
+      url: https://api.qoreid.com/v1/ng/identities/cac-basic
+   agent:
+      url: https://api.qoreid.com/v1/ng/identities/nin/
+   clientId: "{cipher}61c44c95eb6be96f5801d153711109ffa97d50406b941998dbe87e5fbdcec991d30d79687291fe92e00d838f85d31b8f"
+   secret: "{cipher}4c309408a1557ae0115c6e4878d373e3cd4e2eb9b9bbe9f32cc790aad19e1f2486f0d31518e1657d8613b9bd0416ae5f732019e41f43b30059363bb4d758f8f6"
+   auth:
+     url: https://api.qoreid.com/token
+
 logging:
   level:
     root: ${ROOT_LOG_LEVEL}
