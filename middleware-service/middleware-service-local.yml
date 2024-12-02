@@ -13,7 +13,7 @@ spring:
 
   cloud:
     function:
-      definition: mailing; setting
+      definition: mailing; setting; updatePaymentStatus
     stream:
       bindings:
         mailing-out-0:
