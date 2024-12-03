@@ -77,6 +77,12 @@ verification:
    auth:
      url: https://api.qoreid.com/token
 
+payment:
+   remita:
+      url: https://demo.remita.net/remita/exapp/api/v1/send/api/echannelsvc/merchant/api/paymentinit
+      apiKey: "{cipher}71e3dfdf4abc45f4e7237c959ef24ce4e2344f493d99d0d836a68e7a6a487f5f"
+      merchantId: "{cipher}b197d8f2e33dbd6bfa3e527212f76e505ad6fcb3170e903bde1c1ba1c53786ec"
+
 logging:
   level:
     root: ${ROOT_LOG_LEVEL}
