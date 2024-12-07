@@ -84,6 +84,7 @@ payment:
          url: https://demo.remita.net/remita/exapp/api/v1/send/api/echannelsvc
       merchantId: "{cipher}71e3dfdf4abc45f4e7237c959ef24ce4e2344f493d99d0d836a68e7a6a487f5f"
       apiKey: "{cipher}b197d8f2e33dbd6bfa3e527212f76e505ad6fcb3170e903bde1c1ba1c53786ec"
+      serviceTypeId: "{cipher}c1604a871e49e17bec05b8c46251b711bb439a042bffec578d7fc0a40cdd7c8b"
 
 logging:
   level:
