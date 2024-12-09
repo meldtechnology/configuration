@@ -22,8 +22,10 @@ spring:
           destination: userIndustry
         setting-in-0:
           destination: notice-setting
-        payment-out-0:
-           destination: update-payment
+        updatePaymentStatus-out-0:
+           destination: updatePaymentStatus
+        updatePaymentStatus-out-0:
+           destination: updatePaymentStatus
   rabbitmq:
     host: ${BROKER_HOST}
     port: 5672
