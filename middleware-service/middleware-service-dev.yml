@@ -22,8 +22,6 @@ spring:
           destination: userIndustry
         setting-in-0:
           destination: notice-setting
-        payment-in-0:
-          destination: update-payment
         payment-out-0:
            destination: update-payment
   rabbitmq:
