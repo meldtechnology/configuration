@@ -36,7 +36,8 @@ email:
     template: 38483102
   password-reset:
     template: 38490009
-
+  verification:
+      link: http://gaming-demo.eu-west-1.elasticbeanstalk.com/verify/email/otp
 meld:
   scheduler:
     token:
