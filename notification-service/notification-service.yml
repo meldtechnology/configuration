@@ -48,6 +48,14 @@ send:
       apiKey: "{cipher}5fe7843af003cd0f33ee9d3f0434de6df2e5a75284848c0466a561273228c94bdab53aa316b78640d6aff34ac1c72480142ba5a8491436d380c7f1aa87c23ce86374bd4fa49212187d5ddb5c009f2fb06f94fb4302aa59005d4225b02c612bea"
       from: no-reply@meld-tech.com
 
+post:
+   mark:
+      url: https://api.postmarkapp.com/email/withTemplate
+      server-token: 1bf07dec-09c8-45a5-a1ec-528573777c5f
+
+provider:
+   active: POST_MARK
+
 management:
   endpoints:
     web:
