@@ -33,7 +33,7 @@ spring:
 
 email:
   activation:
-    template: 38489921
+    template: 38483102
   password-reset:
     template: 38490009
 

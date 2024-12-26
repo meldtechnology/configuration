@@ -3,10 +3,10 @@ server:
 
 mail:
   otp:
-    template: d-51f59b90307f43518af1ff015950028c 
+    template: 38489921
   reset:
     password:
-      template: d-3925528782334bc0947b33f4df53c4af
+      template: 38490009
 
 springdoc:
   server-url: ${SWAGGER_DOC_URL}
