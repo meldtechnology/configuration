@@ -54,7 +54,7 @@ post:
       server-token: 1bf07dec-09c8-45a5-a1ec-528573777c5f
 
 provider:
-   active: POST_MARK
+   active: POST_EMAIL
 
 management:
   endpoints:
