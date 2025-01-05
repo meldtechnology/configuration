@@ -1,0 +1,47 @@
+server:
+  port: 9011
+
+logging:
+  level:
+    ROOT: ${ROOT_LOG_LEVEL}
+    com.jade.platform: ${LOG_LEVEL}
+    org.springframework.security: ${LOG_LEVEL}
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}/user_service?serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: "{cipher}8283992cfdd36c80d5865a47922662fc5551b7522d5b0010aae0393a09a90bf8"
+    password: "{cipher}7bb75a1d16f037829e7507739a950be52ca01ab16268bf48d81e7962daee6e20"
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: always
+  jpa:
+    open-in-view: off
+
+app:
+  password:
+    strength: 11
+  login:
+    url: ${LOGIN_URL}
+  logout:
+    url: ${LOGOUT_URL}
+issuer:
+  uri: ${ISSUER_HOST_URL}
+private:
+  key: jadedemo.jks
+
+authentication:
+   not_found:
+       path: ${NOT_FOUND_PATH}
+
+key:
+  password: "{cipher}634898ab430a02301ac5e22e27e90a2fea5cad5f6580bfd80d9258cb2fcadb3a"
+  alias: "{cipher}d3fac537035e9e22b4fcf7507698119228bc8f4d6c7bf4d98e5f3aab3f88670c"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
