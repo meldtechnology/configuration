@@ -51,7 +51,7 @@ send:
 post:
    mark:
       url: https://api.postmarkapp.com/email/withTemplate
-      server-token: 1bf07dec-09c8-45a5-a1ec-528573777c5f
+      server-token: "{cipher}27cc17f7dbd753fe4dd1f409ad94409a44e79e783d22f6e2f45700e7bc2e052320e0940c18d7726aa63d3bcceda41732b54c731fc83dc02cf402275a63595651%"
 
 provider:
    active: POST_EMAIL
