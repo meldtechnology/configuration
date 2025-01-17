@@ -88,6 +88,16 @@ payment:
       apiKey: "{cipher}b197d8f2e33dbd6bfa3e527212f76e505ad6fcb3170e903bde1c1ba1c53786ec"
       serviceTypeId: "{cipher}c1604a871e49e17bec05b8c46251b711bb439a042bffec578d7fc0a40cdd7c8b"
 
+report:
+  logo:
+    path: https://assets.maccarianagency.com/backgrounds/img18.jpg
+  date:
+    format: "dd MMMM yyyy HH:mm:ss"
+  download:
+    path: "./download.pdf"
+  author: "Meld Technologies"
+  subject: "Meld Technologies Report Generation Tool"
+
 logging:
   level:
     root: ${ROOT_LOG_LEVEL}
