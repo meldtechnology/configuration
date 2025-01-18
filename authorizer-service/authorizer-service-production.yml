@@ -1,26 +1,17 @@
 server:
   port: 9011
 
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://${DISCOVERY_HOST}:9761/eureka/
-
 logging:
   level:
-    ROOT: INFO
-    com.jade.platform: DEBUG
-    org.springframework.security: TRACE
+    ROOT: ${ROOT_LOG_LEVEL}
+    com.jade.platform: ${LOG_LEVEL}
+    org.springframework.security: ${LOG_LEVEL}
 
 spring:
   datasource:
     url: jdbc:postgresql://${DB_HOST}/user_service?serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: "{cipher}082341d46af4f5d7e5749d7013a1a6bb076be928b7829fa983292e3a15f2ab42"
-    password: "{cipher}19a959f0e4fa9f132df80a66e9f3cddf7caf37b24b034aa89d0e0618a959fe2b"
+    username: "{cipher}956bf7ce65e62326d2d1b9ad72f9cd1cc096159aafd25e88957d7c43711058f6"
+    password: "{cipher}4dfadcdf65515adf7b9c9446ff5bec6da100e0867894508126bc4cc164449554"
     hibernate:
       ddl-auto: none
   sql:
@@ -29,12 +20,21 @@ spring:
   jpa:
     open-in-view: off
 
-
 app:
+  password:
+    strength: 11
   login:
-    url: https://tima.us-east-2.elasticbeanstalk.com/api/auth/login
-issuer.uri: ${ISSUER_HOST_URL}
-private.key: jadedemo.jks
+    url: ${LOGIN_URL}
+  logout:
+    url: ${LOGOUT_URL}
+issuer:
+  uri: ${ISSUER_HOST_URL}
+private:
+  key: jadedemo.jks
+
+authentication:
+   not_found:
+       path: ${NOT_FOUND_PATH}
 
 key:
   password: "{cipher}634898ab430a02301ac5e22e27e90a2fea5cad5f6580bfd80d9258cb2fcadb3a"
