@@ -6,13 +6,14 @@ server:
     min-response-size: 1024
 
 eureka:
-  instance:
-    preferIpAddress: true
+  #instance:
+  #  preferIpAddress: true
   client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://${DISCOVERY_HOST}:9761/eureka/
+     enabled: false
+    #registerWithEureka: true
+    #fetchRegistry: true
+    #serviceUrl:
+    #  defaultZone: http://${DISCOVERY_HOST}:9761/eureka/
 
 logging:
   level:
@@ -44,8 +45,16 @@ sms:
 send:
    grid:
       url: https://api.sendgrid.com/v3/mail/send
-      apiKey: "{cipher}30af7e5f9198929f273dcf54498e2b1daa511ec06a9ac33e1373bdf29e1c1df87d9a38829f803e2f200cba3e031fb4b4562811760d1e21821c4aef2da033f2ce951a2c72da7bda8b5dd23e689341572d6059c851db516881b40dd1291415091c"
-      from: hello@tima.agency
+      apiKey: "{cipher}5fe7843af003cd0f33ee9d3f0434de6df2e5a75284848c0466a561273228c94bdab53aa316b78640d6aff34ac1c72480142ba5a8491436d380c7f1aa87c23ce86374bd4fa49212187d5ddb5c009f2fb06f94fb4302aa59005d4225b02c612bea"
+      from: no-reply@meld-tech.com
+
+post:
+   mark:
+      url: https://api.postmarkapp.com/email/withTemplate
+      server-token: "{cipher}27cc17f7dbd753fe4dd1f409ad94409a44e79e783d22f6e2f45700e7bc2e052320e0940c18d7726aa63d3bcceda41732b54c731fc83dc02cf402275a63595651"
+
+provider:
+   active: POST_EMAIL
 
 management:
   endpoints:
