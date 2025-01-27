@@ -1,47 +1,103 @@
-server:
-  port: 9011
+spring:
+  application:
+    name: user-service-lib
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST}?user_service?serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: "{cipher}956bf7ce65e62326d2d1b9ad72f9cd1cc096159aafd25e88957d7c43711058f6"
+    password: "{cipher}4dfadcdf65515adf7b9c9446ff5bec6da100e0867894508126bc4cc164449554"
+    name: user_service
+  devtools:
+    restart.enabled: true
+  pool:
+    enabled: true
 
-eureka:
-  instance:
-    preferIpAddress: true
+  cloud:
+    function:
+      definition: mailing; setting; updatePaymentStatus
+    stream:
+      bindings:
+        mailing-out-0:
+          destination: mailing-send
+        userIndustry-out-0:
+          destination: userIndustry
+        setting-in-0:
+          destination: notice-setting
+        updatePaymentStatus-in-0:
+           destination: updatePaymentStatus
+        updatePaymentStatus-out-0:
+           destination: updatePaymentStatus
+  rabbitmq:
+    host: ${BROKER_HOST}
+    port: 5672
+    username: guest
+
+email:
+  activation:
+    template: 38483102
+  password-reset:
+    template: 38490009
+  verification:
+      link: http://gaming-demo.eu-west-1.elasticbeanstalk.com/verify/email/otp
+meld:
+  scheduler:
+    token:
+      cleanup: '0 0 */3 * * ?'
+    otp:
+      cleanup: '0 0 * * * ?'
+
+oauth2:
   client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://${DISCOVERY_HOST}:9761/eureka/
+    id: "{cipher}d3242bdde7c9024fb963ec6e9b644d0bd9b0d613bd8ace1007e87e9a0e888512a54b9c2c0d9c96fa06bb2a58ba1abe6fee7f5dcf95afd3da54bd13c3df6c5415"
+    secret:  "{cipher}0a737da608e28c5291b75c297c8bba13676c9059b2537883ca5180809abc2dd9"
+
+  authorize:
+    url: ${ISSUER_HOST}/oauth2/authorize
+    scope: ${SCOPE}
+    challengeMethod: S256
+
+  authorization:
+    url: ${ISSUER_HOST}/oauth2/token
+    grant_type: authorization_code
+    redirect_uri: ${REDIRECT_URL}
+
+  logout:
+    url: ${ISSUER_HOST}/logout
+
+cloudinary:
+  cloud-name: "{cipher}8983718db7b86f9c705103f0e1e7ff52cb260de1269cfddfe3d6e6483816c292"
+  api-key: "{cipher}d040cb0b61a270e1d00be3e6cfbaba94037c92d4c278030ce8bf41b8e70d3fd3"
+  api-secret: "{cipher}e66d5a1b4e5de8d26ed5d1fb170d0c221adc162735363560ff136fb37c7e9a60120ba45aff9f0ecc6c7d8cd75c270f00"
+
+verification:
+   company:
+      url: https://api.qoreid.com/v1/ng/identities/cac-basic
+   agent:
+      url: https://api.qoreid.com/v1/ng/identities/nin/
+   clientId: "{cipher}61c44c95eb6be96f5801d153711109ffa97d50406b941998dbe87e5fbdcec991d30d79687291fe92e00d838f85d31b8f"
+   secret: "{cipher}4c309408a1557ae0115c6e4878d373e3cd4e2eb9b9bbe9f32cc790aad19e1f2486f0d31518e1657d8613b9bd0416ae5f732019e41f43b30059363bb4d758f8f6"
+   auth:
+     url: https://api.qoreid.com/token
+
+payment:
+   remita:
+      url: https://demo.remita.net/remita/exapp/api/v1/send/api/echannelsvc/merchant/api/paymentinit
+      status: 
+         url: https://demo.remita.net/remita/exapp/api/v1/send/api/echannelsvc
+      merchantId: "{cipher}71e3dfdf4abc45f4e7237c959ef24ce4e2344f493d99d0d836a68e7a6a487f5f"
+      apiKey: "{cipher}b197d8f2e33dbd6bfa3e527212f76e505ad6fcb3170e903bde1c1ba1c53786ec"
+      serviceTypeId: "{cipher}c1604a871e49e17bec05b8c46251b711bb439a042bffec578d7fc0a40cdd7c8b"
+
+report:
+  logo:
+    path: https://assets.maccarianagency.com/backgrounds/img18.jpg
+  date:
+    format: "dd MMMM yyyy HH:mm:ss"
+  download:
+    path: "./download.pdf"
+  author: "Meld Technologies"
+  subject: "Meld Technologies Report Generation Tool"
 
 logging:
   level:
-    ROOT: INFO
-    com.jade.platform: DEBUG
-    org.springframework.security: TRACE
+    root: ${ROOT_LOG_LEVEL}
 
-spring:
-  datasource:
-    url: jdbc:postgresql://${DB_HOST}/user_service?serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: "{cipher}082341d46af4f5d7e5749d7013a1a6bb076be928b7829fa983292e3a15f2ab42"
-    password: "{cipher}19a959f0e4fa9f132df80a66e9f3cddf7caf37b24b034aa89d0e0618a959fe2b"
-    hibernate:
-      ddl-auto: none
-  sql:
-    init:
-      mode: always
-  jpa:
-    open-in-view: off
-
-
-app:
-  login:
-    url: https://tima.us-east-2.elasticbeanstalk.com/api/auth/login
-issuer.uri: ${ISSUER_HOST_URL}
-private.key: jadedemo.jks
-
-key:
-  password: "{cipher}634898ab430a02301ac5e22e27e90a2fea5cad5f6580bfd80d9258cb2fcadb3a"
-  alias: "{cipher}d3fac537035e9e22b4fcf7507698119228bc8f4d6c7bf4d98e5f3aab3f88670c"
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
