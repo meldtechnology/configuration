@@ -45,9 +45,9 @@ meld:
     otp:
       cleanup: '0 0 * * * ?'
     payment:
-       retry: '0 0 * * * ?'
+       retry: '0 */10 * * * ?'
        cleanup: '0 15 */12 * * ?'
-       hourUnit: 1
+       hourUnit: 12
        daysUnit: 8
 
 oauth2:
