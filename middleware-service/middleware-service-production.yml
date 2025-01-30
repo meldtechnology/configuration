@@ -47,7 +47,7 @@ meld:
     payment:
        retry: '0 */10 * * * ?'
        cleanup: '0 15 */12 * * ?'
-       hourUnit: 12
+       hourUnit: 24
        daysUnit: 8
 
 oauth2:
