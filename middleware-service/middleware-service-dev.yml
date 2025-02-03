@@ -13,7 +13,7 @@ spring:
 
   cloud:
     function:
-      definition: mailing; setting; updatePaymentStatus
+      definition: mailing; setting; updatePaymentStatus; updateCompanyEmail
     stream:
       bindings:
         mailing-out-0:
@@ -26,6 +26,10 @@ spring:
            destination: updatePaymentStatus
         updatePaymentStatus-out-0:
            destination: updatePaymentStatus
+        updateCompanyEmail-in-0:
+           destination: updateCompanyEmail
+        updateCompanyEmail-out-0:
+           destination: updateCompanyEmail
   rabbitmq:
     host: ${BROKER_HOST}
     port: 5672
