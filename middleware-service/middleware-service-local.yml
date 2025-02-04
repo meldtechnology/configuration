@@ -13,7 +13,7 @@ spring:
 
   cloud:
     function:
-      definition: mailing; setting; updatePaymentStatus; updateCompanyEmail
+      definition: mailing; setting; updatePaymentStatus; updateCompanyEmail; reminderData
     stream:
       bindings:
         mailing-out-0:
@@ -30,6 +30,10 @@ spring:
            destination: updateCompanyEmail
         updateCompanyEmail-out-0:
            destination: updateCompanyEmail
+        reminderData-out-0:
+           destination: reminderData
+        reminderData-in-0:
+           destination: reminderData
 rabbitmq:
     host: ${BROKER_HOST}
     port: 5672
@@ -54,6 +58,13 @@ meld:
        cleanup: '0 15 */12 * * ?'
        hourUnit: 1
        daysUnit: 8
+    application:
+       cleanup: '0 15 */02 * * ?'
+       reminder:
+           setting: '0 15 */07: * * ?'
+           duration: 7
+           penalty: 14
+
 
 oauth2:
   client:
