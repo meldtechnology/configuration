@@ -47,6 +47,7 @@ email:
     template: 38490009
   verification:
       link: http://13.244.112.165/verify/email/otp
+  enforcer: gamingcommission@enugustate.gov.ng
 meld:
   scheduler:
     token:
