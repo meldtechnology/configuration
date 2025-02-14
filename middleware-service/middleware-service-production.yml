@@ -56,7 +56,7 @@ meld:
       cleanup: '0 0 * * * ?'
     payment:
        retry: '0 0 * * * ?'
-       cleanup: '0 15 */12 * * ?'
+       cleanup: '0 15 * * * ?'
        hourUnit: 24
        daysUnit: 8
     application:
