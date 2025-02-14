@@ -47,6 +47,9 @@ email:
   verification:
       link: http://gaming-demo.eu-west-1.elasticbeanstalk.com/verify/email/otp
   enforcer: franko200ng@gmail.com
+  reminder:
+      single:
+         template: 11098
 
 meld:
   scheduler:

@@ -48,6 +48,10 @@ email:
   verification:
       link: https://esgcapp.enugustate.gov.ng/verify/email/otp
   enforcer: gamingcommission@enugustate.gov.ng
+  reminder:
+      single:
+         template: 11098
+
 meld:
   scheduler:
     token:
