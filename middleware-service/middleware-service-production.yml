@@ -69,7 +69,7 @@ meld:
        daysUnit: 8
     application:
        cleanup: '0 15 */02 * * ?'
-       reminder: '0 15 */27 * * ?'
+       reminder:
            setting: '0 15 */07 * * ?'
            duration: 7
            penalty: 14
