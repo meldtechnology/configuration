@@ -50,6 +50,8 @@ email:
   reminder:
       single:
          template: 11098
+      multiple:
+         template: 11098
 
 meld:
   scheduler:
