@@ -53,8 +53,6 @@ email:
          template: 11098
       multiple:
          template: 11098
-  application:
-      reminder: 
 
 meld:
   scheduler:
@@ -68,9 +66,9 @@ meld:
        hourUnit: 24
        daysUnit: 8
     application:
-       cleanup: '0 15 */02 * * ?'
+       cleanup: '0 15 */2 * * ?'
        reminder:
-           setting: '0 15 */07 * * ?'
+           setting: '0 15 */7 * * ?'
            duration: 7
            penalty: 14
     reminder:
