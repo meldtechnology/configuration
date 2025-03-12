@@ -60,7 +60,7 @@ meld:
     otp:
       cleanup: '0 0 * * * ?'
     payment:
-       retry: '0 0 * * * ?'
+       retry: '*/10 * * * * ?'
        cleanup: '0 15 */12 * * ?'
        hourUnit: 1
        daysUnit: 8
