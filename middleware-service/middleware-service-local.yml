@@ -35,7 +35,7 @@ spring:
         reminderData-in-0:
            destination: reminderData
 rabbitmq:
-    host: ${BROKER_HOST:13.244.142.158}
+    host: ${BROKER_HOST:}
     port: 5672
     username: guest
 
