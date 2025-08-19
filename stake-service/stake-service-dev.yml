@@ -1,0 +1,67 @@
+spring:
+  application:
+    name: stake-api-service
+  r2dbc:
+    url: r2dbc:postgresql://r2dbc:postgresql://${DB_HOST}:${DB_PORT:5432}/stake_service?serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: "{cipher}956bf7ce65e62326d2d1b9ad72f9cd1cc096159aafd25e88957d7c43711058f6"
+    password: "{cipher}4dfadcdf65515adf7b9c9446ff5bec6da100e0867894508126bc4cc164449554"
+    pool:
+      initial-size: 5
+      max-size: ${stake.platform.database.max-pool-size}
+      max-idle-time: 30m
+      validation-query: SELECT 1
+      max-create-connection-time: 10s
+      max-acquire-time: 5s
+      max-life-time: 1h
+  liquibase:
+      url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/stake_service
+      user: "{cipher}956bf7ce65e62326d2d1b9ad72f9cd1cc096159aafd25e88957d7c43711058f6"
+      password: "{cipher}4dfadcdf65515adf7b9c9446ff5bec6da100e0867894508126bc4cc164449554"
+      change-log: classpath:db/changelog/db.changelog-master.xml
+  jpa:
+      open-in-view: false
+  pool:
+    enabled: true
+
+  server:
+      port: 9900
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: health,info,metrics,cacheMetrics,connectionPoolMetrics
+    endpoint:
+      health:
+        show-details: when_authorized
+      cacheMetrics:
+        enabled: true
+      connectionPoolMetrics:
+        enabled: true
+
+stake:
+  platform:
+    database:
+      schema: public
+      max-pool-size: 10
+    security:
+      api-key: ${API_KEY}
+      token-expiry-seconds: 3600
+
+#  Stake API Service Configuration
+stake-api:
+  api:
+    version: v1
+    base-path: /api
+  security:
+    api-key-auth-enabled: true
+    api-key-header: X-API-Key
+  rate-limit:
+    enabled: true
+    default-capacity: 100
+    default-refill-period: 60
+
+logging:
+  level:
+    root: ${ROOT_LOG_LEVEL}
+
