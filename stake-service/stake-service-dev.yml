@@ -23,21 +23,21 @@ spring:
   pool:
     enabled: true
 
-  server:
-      port: 9900
+server:
+  port: 9900
 
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: health,info,metrics,cacheMetrics,connectionPoolMetrics
-    endpoint:
-      health:
-        show-details: when_authorized
-      cacheMetrics:
-        enabled: true
-      connectionPoolMetrics:
-        enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,cacheMetrics,connectionPoolMetrics
+  endpoint:
+    health:
+      show-details: when_authorized
+    cacheMetrics:
+      enabled: true
+    connectionPoolMetrics:
+      enabled: true
 
 stake:
   platform:
