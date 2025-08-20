@@ -49,7 +49,7 @@ stake:
       token-expiry-seconds: 3600
 
 #  Stake API Service Configuration
-stake:
+stake-api:
   api:
     version: v1
     base-path: /api
