@@ -1,10 +1,11 @@
 spring:
   application:
-    name: stake-api-service
+    name: stake-service
   r2dbc:
     url: r2dbc:postgresql://${DB_HOST}:${DB_PORT:5432}/stake_service?serverTimezone=UTC&useLegacyDatetimeCode=false
     username: "{cipher}8283992cfdd36c80d5865a47922662fc5551b7522d5b0010aae0393a09a90bf8"
     password: "{cipher}7bb75a1d16f037829e7507739a950be52ca01ab16268bf48d81e7962daee6e20"
+    # R2DBC connection pool settings
     pool:
       initial-size: 5
       max-size: ${stake.platform.database.max-pool-size}
@@ -26,17 +27,43 @@ spring:
 server:
   port: 9900
 
+  # Redis configuration
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    username: ${REDIS_USERNAME:}
+    password: ${REDIS_PASSWORD:}
+    database: 0
+    ssl: false
+    connect-timeout: 2s
+    command-timeout: 1s
+    # Redis connection pool settings
+    pool:
+      max-total: 16
+      max-idle: 8
+      min-idle: 4
+      max-wait-time: 2s
+      test-on-borrow: true
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs: 30s
+
+
 management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,cacheMetrics,connectionPoolMetrics
+        include: health,info,metrics,prometheus
+      base-path: /actuator
   endpoint:
     health:
       show-details: when_authorized
-    cacheMetrics:
+    metrics:
       enabled: true
-    connectionPoolMetrics:
+    prometheus:
+      enabled: true
+  info:
+    env:
       enabled: true
 
 stake:
@@ -59,9 +86,29 @@ stake-api:
   rate-limit:
     enabled: true
     default-capacity: 100
-    default-refill-period: 2
+    default-refill-period: 60
+    ip-capacity: 60
+    ip-refill-period: 60
+
 
 logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{requestId}] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{requestId}] %-5level %logger{36} - %msg%n"
   level:
     root: ${ROOT_LOG_LEVEL}
-
+    org.meldtech.platform: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.data: INFO
+    io.r2dbc: INFO
+    reactor.netty: INFO
+  file:
+    name: logs/stake-service.log
+    max-size: 10MB
+    max-history: 7
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 7
+      total-size-cap: 100MB
