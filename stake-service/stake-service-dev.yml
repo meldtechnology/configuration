@@ -110,8 +110,11 @@ logging:
     org.springframework.web: INFO
     org.springframework.security: INFO
     org.springframework.data: INFO
+    org.springframework.data.redis: DEBUG
     io.r2dbc: INFO
+    io.lettuce.core: DEBUG
     reactor.netty: INFO
+
   file:
     name: logs/stake-service.log
     max-size: 10MB
