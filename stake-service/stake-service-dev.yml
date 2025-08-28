@@ -1,3 +1,6 @@
+server:
+  port: 9900
+
 spring:
   application:
     name: stake-service
@@ -23,9 +26,6 @@ spring:
       open-in-view: false
   pool:
     enabled: true
-
-server:
-  port: 9900
 
   # Redis configuration
   redis:
@@ -55,7 +55,12 @@ server:
       max-wait: 2000ms
       time-between-eviction-runs: 30s
     shutdown-timeout: 2000ms
-
+  
+    security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${AUTH_SERVER_URI}/.well-known/authorization-server/jwks.json
 
 oauth2:
   client:
