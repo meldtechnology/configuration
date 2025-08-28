@@ -56,7 +56,7 @@ spring:
       time-between-eviction-runs: 30s
     shutdown-timeout: 2000ms
   
-    security:
+  security:
     oauth2:
       resourceserver:
         jwt:
