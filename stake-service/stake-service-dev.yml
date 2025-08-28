@@ -55,6 +55,26 @@ server:
       max-wait: 2000ms
       time-between-eviction-runs: 30s
     shutdown-timeout: 2000ms
+
+
+oauth2:
+  client:
+    id: "{cipher}d3242bdde7c9024fb963ec6e9b644d0bd9b0d613bd8ace1007e87e9a0e888512a54b9c2c0d9c96fa06bb2a58ba1abe6fee7f5dcf95afd3da54bd13c3df6c5415"
+    secret:  "{cipher}0a737da608e28c5291b75c297c8bba13676c9059b2537883ca5180809abc2dd9"
+
+  authorize:
+    url: ${ISSUER_HOST}/oauth2/authorize
+    scope: ${SCOPE}
+    challengeMethod: S256
+
+  authorization:
+    url: ${ISSUER_HOST}/oauth2/token
+    grant_type: authorization_code
+    redirect_uri: ${REDIRECT_URL}
+
+  logout:
+    url: ${ISSUER_HOST}/logout
+
   
 management:
   endpoints:
