@@ -1,5 +1,9 @@
 server:
   port: 9900
+  error:
+    include-stacktrace: never
+    include-message: always
+
 
 spring:
   application:
