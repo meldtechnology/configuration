@@ -27,7 +27,7 @@ spring:
       password: "{cipher}7bb75a1d16f037829e7507739a950be52ca01ab16268bf48d81e7962daee6e20"
       change-log: classpath:db/changelog/db.changelog-master.xml
   jpa:
-      open-in-view: true
+      open-in-view: false
   pool:
     enabled: true
 
@@ -113,6 +113,8 @@ stake:
 
 #  Stake API Service Configuration
 stake-api:
+  batch:
+     max: 100
   api:
     version: v1
     base-path: /api
