@@ -115,8 +115,8 @@ stake:
 stake-api:
   batch:
      max: 100
-  base
-     url: http://localhost:9900
+  update
+     baseUrl: http://localhost:9900
   api:
     version: v1
     base-path: /api
