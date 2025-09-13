@@ -114,7 +114,7 @@ stake:
 #  Stake API Service Configuration
 stake-api:
   batch:
-     max: 1
+     max: 5
   update:
      baseUrl: http://localhost:9900
   api:
