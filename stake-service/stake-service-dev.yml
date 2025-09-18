@@ -11,7 +11,7 @@ spring:
   r2dbc:
     url: r2dbc:postgresql://${DB_HOST}:${DB_PORT:5432}/stake_service?serverTimezone=UTC&useLegacyDatetimeCode=false
     username: "{cipher}8283992cfdd36c80d5865a47922662fc5551b7522d5b0010aae0393a09a90bf8"
-    password: "{cipher}e88db6004bf194421429d53d09f49ee7a28ed86b763a9c899872f1fc4bdb07b6"
+    password: "{cipher}4e3f3b15ca5d90a6b22e019ee747eea6e4c514c8cba14d2ceefda18b361b8afb"
     # R2DBC connection pool settings
     pool:
       initial-size: 5
@@ -24,7 +24,7 @@ spring:
   liquibase:
       url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/stake_service
       user: "{cipher}8283992cfdd36c80d5865a47922662fc5551b7522d5b0010aae0393a09a90bf8"
-      password: "{cipher}e88db6004bf194421429d53d09f49ee7a28ed86b763a9c899872f1fc4bdb07b6"
+      password: "{cipher}4e3f3b15ca5d90a6b22e019ee747eea6e4c514c8cba14d2ceefda18b361b8afb"
       change-log: classpath:db/changelog/db.changelog-master.xml
   jpa:
       open-in-view: false
