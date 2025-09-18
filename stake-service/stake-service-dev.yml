@@ -147,7 +147,7 @@ logging:
     reactor.netty: INFO
 
   file:
-    name: logs/stake-service.log
+    name: ./logs/stake-service.log
     max-size: 10MB
     max-history: 7
   logback:
