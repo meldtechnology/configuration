@@ -28,4 +28,4 @@ spring:
 
 auth:
   config:
-     disabled: true
+     disabled: false
