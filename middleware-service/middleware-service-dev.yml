@@ -69,6 +69,8 @@ meld:
            setting: '0 15 */07: * * ?'
            duration: 7
            penalty: 14
+  key: "{cipher}3c14bf6fd7fc24a6596870906a1a1362ca6f3cf6cbe62692b7fb4ea102f6e86f2f11d00f57efc908ac0c626df0cb39257c3230f2410847588aa6253b00605b10"
+  iv: "{cipher}ea76dce425827e48f98e0a85af253d67225cdbae4e55046250250915dcd5a26257119e1b1632ec7f0b1157c845352417"
 
 oauth2:
   client:
