@@ -68,8 +68,14 @@ logging:
     root: ${ROOT_LOG_LEVEL}
 
 security:
+  verification:
+    # Strategy can be: old, new, dual
+    strategy: dual
+    # Fine-grained toggles if you want to diverge per flow (optional)
+    password-reset:
+      strategy: dual
   hmac:
-    secret: ${APP_HMAC_SECRET:change-me-long-random-base64}
+    secret: ${APP_HMAC_SECRET:}
   role:
     transition:
           from: STANDARD
