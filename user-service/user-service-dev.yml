@@ -67,3 +67,10 @@ logging:
   level:
     root: ${ROOT_LOG_LEVEL}
 
+security:
+  hmac:
+    secret: ${APP_HMAC_SECRET:change-me-long-random-base64}
+  role:
+    transition:
+          from: STANDARD
+          to: OPERATOR
