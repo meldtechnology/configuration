@@ -47,6 +47,9 @@ email:
     template: 38490009
   verification:
       link: https://esgcapp.enugustate.gov.ng/verify/email/otp
+      links:
+        8b137ed2-b994-4821-844e-e96da7810e03: https://esgcapp.enugustate.gov.ng/verify/email/otp
+        df7afea6-3a15-4cf2-94f3-b168c8082c90: https://localhost:5173/verify/email
   enforcer: gamingcommission@enugustate.gov.ng
   reminder:
       single:
