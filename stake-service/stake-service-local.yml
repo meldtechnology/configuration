@@ -101,6 +101,9 @@ management:
   info:
     env:
       enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 stake:
   platform:
@@ -157,3 +160,31 @@ logging:
       max-file-size: 10MB
       max-history: 7
       total-size-cap: 100MB
+# New
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 20
+        minimumNumberOfCalls: 10
+        permittedNumberOfCallsInHalfOpenState: 5
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        slowCallDurationThreshold: 3s
+        slowCallRateThreshold: 50
+        recordExceptions:
+          - java.util.concurrent.TimeoutException
+          - org.springframework.web.reactive.function.client.WebClientResponseException
+    instances:
+      metricsAggregation:
+        baseConfig: default
+
+app:
+  security:
+    enabled: true
+  cache:
+    metrics:
+      enabled: true
+      ttlSeconds: 45
