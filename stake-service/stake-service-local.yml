@@ -110,7 +110,7 @@ stake-api:
   security:
     api-key-auth-enabled: true
     api-key-header: X-API-Key
-    role: OPERATOR
+    role: OPERATOR_API_USER
   rate-limit:
     enabled: true
     default-capacity: 100
