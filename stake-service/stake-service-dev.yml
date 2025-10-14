@@ -60,31 +60,14 @@ spring:
       time-between-eviction-runs: 30s
     shutdown-timeout: 2000ms
   
+#  Spring Oauth Resource server Configuration
   security:
     oauth2:
       resourceserver:
         jwt:
           jwk-set-uri: ${AUTH_SERVER_URI}/.well-known/authorization-server/jwks.json
 
-oauth2:
-  client:
-    id: "{cipher}d3242bdde7c9024fb963ec6e9b644d0bd9b0d613bd8ace1007e87e9a0e888512a54b9c2c0d9c96fa06bb2a58ba1abe6fee7f5dcf95afd3da54bd13c3df6c5415"
-    secret:  "{cipher}0a737da608e28c5291b75c297c8bba13676c9059b2537883ca5180809abc2dd9"
-
-  authorize:
-    url: ${ISSUER_HOST}/oauth2/authorize
-    scope: ${SCOPE}
-    challengeMethod: S256
-
-  authorization:
-    url: ${ISSUER_HOST}/oauth2/token
-    grant_type: authorization_code
-    redirect_uri: ${REDIRECT_URL}
-
-  logout:
-    url: ${ISSUER_HOST}/logout
-
-  
+#  Stake Service App health metrics Configuration  
 management:
   endpoints:
     web:
@@ -102,6 +85,7 @@ management:
     env:
       enabled: true
 
+#  StakeI Service Configuration
 stake:
   platform:
     database:
@@ -125,6 +109,7 @@ stake-api:
   security:
     api-key-auth-enabled: true
     api-key-header: X-API-Key
+    role: OPERATOR_API_USER
   rate-limit:
     enabled: true
     default-capacity: 100
@@ -132,7 +117,7 @@ stake-api:
     ip-capacity: 60
     ip-refill-period: 60
 
-
+#  Logging Configuration
 logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{requestId}] %-5level %logger{36} - %msg%n"
@@ -157,3 +142,32 @@ logging:
       max-file-size: 10MB
       max-history: 7
       total-size-cap: 100MB
+
+#  Stake Circuit breaker Configuration
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 20
+        minimumNumberOfCalls: 10
+        permittedNumberOfCallsInHalfOpenState: 5
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        slowCallDurationThreshold: 3s
+        slowCallRateThreshold: 50
+        recordExceptions:
+          - java.util.concurrent.TimeoutException
+          - org.springframework.web.reactive.function.client.WebClientResponseException
+    instances:
+      metricsAggregation:
+        baseConfig: default
+
+app:
+  security:
+    enabled: true
+  cache:
+    metrics:
+      enabled: true
+      ttlSeconds: 45
+
