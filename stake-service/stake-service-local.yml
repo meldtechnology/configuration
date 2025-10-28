@@ -39,14 +39,14 @@ spring:
     password: ${REDIS_PASSWORD:}
     database: 0
     ssl: false
-    connect-timeout: 2s
+    connect-timeout: 5s
     command-timeout: 5s
     # Redis connection pool settings
     pool:
       max-total: 32 #64 -- prod
       max-idle: 16 #32
       min-idle: 8  #16
-      max-wait-time: 2s
+      max-wait-time: 3s
       test-on-borrow: true
       test-on-return: false
       test-while-idle: true
