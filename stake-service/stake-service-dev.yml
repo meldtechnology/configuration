@@ -95,7 +95,7 @@ stake:
       api-key: ${API_KEY:default-local-env}
       token-expiry-seconds: 3600
     allowed:
-      hosts: http://localhost:5173
+      hosts: http://localhost:5173, http://test-stake.meld-tech.com
 
 #  Stake API Service Configuration
 stake-api:
