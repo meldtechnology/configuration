@@ -1,0 +1,173 @@
+server:
+  port: 9900
+  error:
+    include-stacktrace: never
+    include-message: always
+
+
+spring:
+  application:
+    name: stake-service
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST}:${DB_PORT:5432}/stake_service?serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: "{cipher}8283992cfdd36c80d5865a47922662fc5551b7522d5b0010aae0393a09a90bf8"
+    password: "{cipher}4e3f3b15ca5d90a6b22e019ee747eea6e4c514c8cba14d2ceefda18b361b8afb"
+    # R2DBC connection pool settings
+    pool:
+      initial-size: 5
+      max-size: ${stake.platform.database.max-pool-size}
+      max-idle-time: 30m
+      validation-query: SELECT 1
+      max-create-connection-time: 10s
+      max-acquire-time: 5s
+      max-life-time: 1h
+  liquibase:
+      url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/stake_service
+      user: "{cipher}8283992cfdd36c80d5865a47922662fc5551b7522d5b0010aae0393a09a90bf8"
+      password: "{cipher}4e3f3b15ca5d90a6b22e019ee747eea6e4c514c8cba14d2ceefda18b361b8afb"
+      change-log: classpath:db/changelog/db.changelog-master.xml
+  jpa:
+      open-in-view: false
+  pool:
+    enabled: true
+
+  # Redis configuration
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    username: ${REDIS_USERNAME:}
+    password: ${REDIS_PASSWORD:}
+    database: 0
+    ssl: false
+    connect-timeout: 5s
+    command-timeout: 5s
+    # Redis connection pool settings
+    pool:
+      max-total: 32 #64 -- prod
+      max-idle: 16 #32
+      min-idle: 8  #16
+      max-wait-time: 3s
+      test-on-borrow: true
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs: 30s
+  lettuce:
+    pool:
+      max-active: 16
+      max-idle: 8
+      min-idle: 4
+      max-wait: 2000ms
+      time-between-eviction-runs: 30s
+    shutdown-timeout: 2000ms
+  
+#  Spring Oauth Resource server Configuration
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${AUTH_SERVER_URI}/.well-known/authorization-server/jwks.json
+
+#  Stake Service App health metrics Configuration  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when_authorized
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+#  StakeI Service Configuration
+stake:
+  platform:
+    database:
+      schema: public
+      max-pool-size: 10
+    security:
+      api-key: ${API_KEY:default-local-env}
+      token-expiry-seconds: 3600
+    allowed:
+      hosts: http://localhost:5173, https://test-stake.meld-tech.com, http://test-stake.meld-tech.com
+
+#  Stake API Service Configuration
+stake-api:
+  batch:
+     max: 5
+  update:
+     baseUrl: http://localhost:9900
+  api:
+    version: v1
+    base-path: /api
+  security:
+    api-key-auth-enabled: true
+    api-key-header: X-API-Key
+    role: OPERATOR_API_USER
+  rate-limit:
+    enabled: true
+    default-capacity: 100
+    default-refill-period: 60
+    ip-capacity: 60
+    ip-refill-period: 60
+
+#  Logging Configuration
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{requestId}] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{requestId}] %-5level %logger{36} - %msg%n"
+  level:
+    root: ${ROOT_LOG_LEVEL}
+    org.meldtech.platform: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.data: INFO
+    org.springframework.data.redis: INFO
+    io.r2dbc: INFO
+    io.lettuce.core: INFO
+    reactor.netty: INFO
+
+  file:
+    name: logs/stake-service.log
+    max-size: 10MB
+    max-history: 7
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 7
+      total-size-cap: 100MB
+
+#  Stake Circuit breaker Configuration
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 20
+        minimumNumberOfCalls: 10
+        permittedNumberOfCallsInHalfOpenState: 5
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        slowCallDurationThreshold: 3s
+        slowCallRateThreshold: 50
+        recordExceptions:
+          - java.util.concurrent.TimeoutException
+          - org.springframework.web.reactive.function.client.WebClientResponseException
+    instances:
+      metricsAggregation:
+        baseConfig: default
+
+app:
+  security:
+    enabled: true
+  cache:
+    metrics:
+      enabled: true
+      ttlSeconds: 45
+

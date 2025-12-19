@@ -1,0 +1,59 @@
+server:
+  port: 9012
+
+spring:
+  application:
+    name: test-engine-admin
+  liquibase:
+    enabled: true
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/assessment_service
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/assessment_service?serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    pool:
+      enabled: true
+      initial-size: 10
+      max-size: 40
+      max-idle-time: 30s
+      validation-query: SELECT 1
+      max-create-connection-time: 10s
+      max-acquire-time: 5s
+      max-life-time: 1h
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      username: ${REDIS_USERNAME:}
+      password: ${REDIS_PASSWORD:}
+      database: 0
+      connect-timeout: 5s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.r2dbc: DEBUG
+    org.meldtech.platform: DEBUG
+
+app:
+  ratelimit:
+    enabled: true
+    capacity: 120
+    leakPerSecond: 2.0 # ~120/min
+    keyStrategy: IP_OR_DEVICE
+    deviceHeaders: ["X-Device-Id", "X-Device-KeyId"]
+    keyPrefix: rate-limit
+    perPath: true
