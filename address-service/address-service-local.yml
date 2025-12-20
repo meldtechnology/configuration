@@ -57,3 +57,6 @@ app:
     deviceHeaders: ["X-Device-Id", "X-Device-KeyId"]
     keyPrefix: rate-limit
     perPath: true
+  geocoding:
+      url: https://nominatim.openstreetmap.org/search?q=%s&format=json&limit=1
+      reverse: https://nominatim.openstreetmap.org/reverse?lat=%f&lon=%f&format=json
