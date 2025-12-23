@@ -57,9 +57,9 @@ logging:
 app:
   ratelimit:
     enabled: true
-    capacity: 120
+    capacity: 5
     leakPerSecond: 2.0 # ~120/min
-    keyStrategy: IP_OR_DEVICE
+    keyStrategy: IP
     deviceHeaders: ["X-Device-Id", "X-Device-KeyId"]
     keyPrefix: rate-limit
     perPath: true
