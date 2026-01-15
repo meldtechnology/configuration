@@ -1,0 +1,129 @@
+server:
+  port: 9990
+spring:
+  application:
+    name: test-engine-admin
+  liquibase:
+    enabled: true
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/assessment_service
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/assessment_service?serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    pool:
+      enabled: true
+      initial-size: 10
+      max-size: 40
+      max-idle-time: 30s
+      validation-query: SELECT 1
+      max-create-connection-time: 10s
+      max-acquire-time: 5s
+      max-life-time: 1h
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      username: ${REDIS_USERNAME:}
+      password: ${REDIS_PASSWORD:}
+      database: 0
+      connect-timeout: 5s
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.r2dbc: DEBUG
+    org.meldtech.platform: DEBUG
+#    liquibase: DEBUG
+# Subscription configuration defaults for dev profile
+subscription:
+  pricing:
+    currency: "USD"
+    yearlyDiscountPercent: 20
+    plans:
+      FREE:
+        monthly: 0
+        yearly: 0
+      BASIC:
+        monthly: 9.99
+        yearly: 99.00
+      PREMIUM:
+        monthly: 29.99
+        yearly: 299.00
+      ENTERPRISE:
+        monthly: 199.00
+        yearly: 1990.00
+    addons:
+      per5Courses: 2.50
+      per10Questions: 1.00
+  limits:
+    FREE:
+      maxCourses: 1
+      maxQuestions: 1
+      maxAnswersPerQuestion: 4
+      allowedTypes: [SINGLE]
+    BASIC:
+      maxCourses: 1
+      maxQuestions: 10
+      maxAnswersPerQuestion: 8
+      allowedTypes: [SINGLE]
+    PREMIUM:
+      maxCourses: 10
+      maxQuestions: 100
+      maxAnswersPerQuestion: -1
+      allowedTypes: [SINGLE, MULTIPLE, DRAG_DROP]
+    ENTERPRISE:
+      maxCourses: 1000
+      maxQuestions: 1000
+      maxAnswersPerQuestion: -1
+      allowedTypes: [SINGLE, MULTIPLE, DRAG_DROP, FREE_TEXT]
+  security:
+    requiredRole: "ROLE_TENANT_ADMIN"
+
+app:
+  security:
+    jwkSetUri: ${AUTH_JWKS_URI}/.well-known/authorization-server/jwks.json
+    allowedHosts: "*"
+    keyId: ${KID}
+  ratelimit:
+    enabled: true
+    capacity: 120
+    leakPerSecond: 2.0 # ~120/min
+    keyStrategy: IP_OR_DEVICE
+    deviceHeaders: ["X-Device-Id", "X-Device-KeyId"]
+    keyPrefix: rate-limit
+    perPath: true
+  crypto:
+    enabled: true
+    submissionRequired: false
+  rabbit:
+    streams:
+      enabled: false
+      # host: localhost
+      # port: 5552 # default Streams port
+      # username: guest
+      # password: guest
+      # vhost: /
+      # stream: analytics.events
+      # maxInFlight: 256
+      # dropOnError: true
+# Redis connection for rate limiting (if enabled and Redis is available)
+#spring:
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+# Reactor debug flags (off by default for perf); enable temporarily when needed
+#reactor:
+#  trace-operator-stacktraces: false
+
