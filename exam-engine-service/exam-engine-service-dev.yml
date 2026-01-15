@@ -38,12 +38,6 @@ management:
   endpoint:
     health:
       show-details: when_authorized
-logging:
-  level:
-    root: INFO
-    org.springframework.web: INFO
-    org.springframework.r2dbc: DEBUG
-    org.meldtech.platform: DEBUG
 #    liquibase: DEBUG
 # Subscription configuration defaults for dev profile
 subscription:
@@ -126,4 +120,29 @@ app:
 # Reactor debug flags (off by default for perf); enable temporarily when needed
 #reactor:
 #  trace-operator-stacktraces: false
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{requestId}] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%X{requestId}] %-5level %logger{36} - %msg%n"
+  level:
+    root: ${ROOT_LOG_LEVEL}
+    org.meldtech.platform: INFO
+    org.springframework.web: INFO
+    org.springframework.r2dbc: DEBUG
+    org.springframework.security: INFO
+    org.springframework.data: INFO
+    org.springframework.data.redis: INFO
+    io.r2dbc: INFO
+    io.lettuce.core: INFO
+    reactor.netty: INFO
+
+  file:
+    name: logs/exam-engine-service.log
+    max-size: 10MB
+    max-history: 7
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 7
+      total-size-cap: 100MB
 
