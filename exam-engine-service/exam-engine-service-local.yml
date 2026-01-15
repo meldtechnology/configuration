@@ -32,10 +32,7 @@ spring:
       connect-timeout: 5s
   rabbitmq:
     stream:
-      host: localhost
-      port: 5552
-      username: guest
-      password: guest
+      compression: none
 management:
   endpoints:
     web:
