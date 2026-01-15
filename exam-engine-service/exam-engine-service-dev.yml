@@ -30,6 +30,9 @@ spring:
       password: ${REDIS_PASSWORD:}
       database: 0
       connect-timeout: 5s
+  rabbitmq:
+    stream:
+      enabled: false  # Set to true if you want to use RabbitMQ Streams
 management:
   endpoints:
     web:
@@ -103,10 +106,10 @@ app:
   rabbit:
     streams:
       enabled: false
-      host: localhost
-      port: 5552 # default Streams port
-      username: guest
-      password: guest
+      # host: localhost
+      # port: 5552 # default Streams port
+      # username: guest
+      # password: guest
       # vhost: /
       # stream: analytics.events
       # maxInFlight: 256
