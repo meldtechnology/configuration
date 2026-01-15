@@ -30,9 +30,10 @@ spring:
       password: ${REDIS_PASSWORD:}
       database: 0
       connect-timeout: 5s
-  rabbitmq:
-    stream:
-      enabled: false  # Set to true if you want to use RabbitMQ Streams
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.amqp.RabbitStreamConfiguration
+
 management:
   endpoints:
     web:
