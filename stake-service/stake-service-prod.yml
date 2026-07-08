@@ -116,6 +116,8 @@ stake-api:
     default-refill-period: 60
     ip-capacity: 60
     ip-refill-period: 60
+  licenseVerification:
+    base-url: https://meld-tech.com
 
 #  Logging Configuration
 logging:

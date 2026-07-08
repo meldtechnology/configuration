@@ -116,6 +116,8 @@ stake-api:
     default-refill-period: 60
     ip-capacity: 60
     ip-refill-period: 60
+  licenseVerification:
+    base-url: http://ec2-34-247-178-29.eu-west-1.compute.amazonaws.com
 
 #  Logging Configuration
 logging:
