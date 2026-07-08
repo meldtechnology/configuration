@@ -166,6 +166,8 @@ resilience4j:
 app:
   security:
     enabled: true
+  secret:
+    prefix: ak_test_
   cache:
     metrics:
       enabled: true
